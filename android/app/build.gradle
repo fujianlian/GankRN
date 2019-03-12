@@ -139,6 +139,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     // 启动页
     implementation project(':react-native-splash-screen')
+    implementation project(':react-native-webview')
 }
 
 // Run this once to be able to run the application with BUCK

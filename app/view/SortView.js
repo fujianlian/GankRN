@@ -1,15 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
-
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import SplashScreen from 'react-native-splash-screen'
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,10 +10,6 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class SortView extends Component<Props> {
-
-    componentDidMount() {
-        SplashScreen.hide();
-    }
 
     render() {
         return (
