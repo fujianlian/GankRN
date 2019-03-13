@@ -3,22 +3,23 @@ import {Reducer, Actions, Router, Scene, Stack} from 'react-native-router-flux';
 import {View, StatusBar, StyleSheet, Platform, BackHandler} from 'react-native';
 import React, {Component} from 'react';
 import MainTab from './view/MainTab'
-import MyWeb from './view/WebPage'
 import {C1, mainColor} from "./configs";
+import MyWeb from './view/WebPage'
+import PhotoView from './view/PhotoView'
 
-const statusBackColor = Platform.select({android: mainColor, ios: 'transparent'})
+const statusBackColor = Platform.select({android: mainColor, ios: 'transparent'});
 
 export default class RootView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {Platform.OS === 'ios' ? null :
-                    <StatusBar backgroundColor={statusBackColor} barStyle={'dark-content'}/>}
-
+                {Platform.OS === 'ios' ? <StatusBar barStyle={'light-content'}/> :
+                    <StatusBar backgroundColor={statusBackColor}/>}
                 <Router createReducer={routerReducerCreate} backAndroidHandler={backAndroidHandler}>
                     <Stack {...FrameStyles}>
                         <Scene key="main" component={MainTab} initial={true}/>
                         <Scene key="webView" title="Web" component={MyWeb}/>
+                        <Scene key="photo" title="Web" component={PhotoView}/>
                     </Stack>
                 </Router>
             </View>

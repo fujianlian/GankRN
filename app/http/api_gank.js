@@ -8,7 +8,7 @@ const service_url = (path) => {
 };
 
 // 默认每页数据大小
-const pageSize = 15;
+const pageSize = 16;
 
 /**
  * 获取分类列表数据
