@@ -26,7 +26,8 @@ export default class PhotoView extends Component {
     render() {
         return (
             <View style={container}>
-                <Image source={{uri: this.props.url}}
+                <Image defaultSource={require('../../image/fuli.png')}
+                       source={{uri: this.props.url}}
                        style={{width: screenWidth, height: this.state.height}}/>
             </View>
         );
