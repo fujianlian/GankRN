@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, View} from 'react-native';
-
-//屏幕信息
-const dimensions = require('Dimensions');
-//获取屏幕的宽度和高度
-const {width, height} = dimensions.get('window');
+import {Image, View} from 'react-native';
+import {container, screenWidth} from "../../configs";
 
 export default class PhotoView extends Component {
 
@@ -16,9 +12,9 @@ export default class PhotoView extends Component {
     }
 
     componentWillMount(): void {
-        Image.getSize(this.props.url, (widths, heights) => {
+        Image.getSize(this.props.url, (width, height) => {
             this.setState({
-                height: heights / widths * width,
+                height: height / width * screenWidth,
             });
         })
     }
@@ -29,29 +25,10 @@ export default class PhotoView extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={container}>
                 <Image source={{uri: this.props.url}}
-                       style={{width: width, height: this.state.height }}/>
+                       style={{width: screenWidth, height: this.state.height}}/>
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});

@@ -9,14 +9,18 @@ import {
 } from "react-native";
 import {getCategoryData} from "../../http/api_gank";
 import {Actions} from 'react-native-router-flux';
-import {isIphoneX, mainColor, screenWidth} from "../../configs";
+import {isIphoneX, mainColor} from "../../configs";
 import {createAppContainer, createStackNavigator} from "react-navigation";
 import WaitLoadingView from "../component/WaitLoadingView";
 import ErrorView from "../component/ErrorView";
 
+//屏幕信息
+const dimensions = require('Dimensions');
+//获取屏幕的宽度和高度
+const width = dimensions.get('window').width;
 const marginBottom = isIphoneX() ? 20 : 0;
 
-class GirlsView extends Component {
+class SortView extends Component {
 
     constructor(props) {
         super(props);
@@ -33,18 +37,19 @@ class GirlsView extends Component {
     }
 
     static navigationOptions = ({navigation}) => ({
-        title: `妹纸`,
+        title: `分类`,
         headerTintColor: "white",
         headerStyle: {backgroundColor: mainColor},
         headerRight: (
             <TouchableOpacity
                 style={{paddingStart: 10, paddingEnd: 10}}
+                activeOpacity={0.5}
                 onPress={() => {
-                    DeviceEventEmitter.emit('rightNavBarAction');
+                    Actions.addGank();
                 }}>
                 <Image
-                    style={{height: 25, width: 25,}}
-                    source={require('../../image/switch.png')}
+                    style={{height: 26, width: 26,}}
+                    source={require('../../image/add.png')}
                 />
             </TouchableOpacity>)
     });
@@ -101,8 +106,8 @@ class GirlsView extends Component {
                 numColumns={this.state.column}
                 getItemLayout={(data, index) => (
                     this.state.column === 2
-                        ? {length: screenWidth * 0.60, offset: screenWidth * 0.60 * index, index}
-                        : {length: screenWidth * 0.8, offset: screenWidth * 0.8 * index, index}
+                        ? {length: width * 0.60, offset: width * 0.60 * index, index}
+                        : {length: width * 0.8, offset: width * 0.8 * index, index}
                 )}
             />
         );
@@ -125,8 +130,8 @@ class GirlsView extends Component {
 
     renderItemView(item) {
         let isDouble = this.state.column === 2;
-        let w = isDouble ? screenWidth * 0.5 - 7 : screenWidth - 7;
-        let h = isDouble ? screenWidth * 0.60 - 7 : screenWidth * 0.8 - 7;
+        let w = isDouble ? width * 0.5 - 7 : width - 7;
+        let h = isDouble ? width * 0.60 - 7 : width * 0.8 - 7;
         let style = isDouble ? styles.itemPadding : styles.itemPadding1;
         return (
             <TouchableHighlight
@@ -144,31 +149,30 @@ class GirlsView extends Component {
 const styles = StyleSheet.create({
     itemPadding: {
         padding: 3.5,
-        height: screenWidth * 0.60,
-        width: screenWidth / 2,
+        height: width * 0.60,
+        width: width / 2,
     },
     itemPadding1: {
         padding: 3.5,
-        height: screenWidth * 0.8,
-        width: screenWidth,
+        height: width * 0.8,
+        width: width,
     }
 });
 
-
 const RootStack = createStackNavigator(
     {
-        photo: {
-            screen: GirlsView,
+        sort: {
+            screen: SortView,
         },
     },
     {
-        initialRouteName: 'photo',
+        initialRouteName: 'sort',
     }
 );
 
 const AppContainer = createAppContainer(RootStack);
 
-export default class GirlsTab extends React.Component {
+export default class SortTab extends React.Component {
     render() {
         return <AppContainer/>;
     }

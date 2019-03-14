@@ -1,5 +1,6 @@
 import {Platform, Dimensions, StyleSheet, PixelRatio} from "react-native"
 import {borderColor, mainColor, navBackColor, placeholderColor} from './index';
+import {mainBackColor} from "./colors";
 
 /*
  设备的像素密度，例如：
@@ -143,4 +144,9 @@ export const container = {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+};
+
+export const background = {
+    flex: 1,
+    backgroundColor: mainBackColor,
 };

@@ -6,6 +6,7 @@ import MainTab from './view/MainTab'
 import {C1, mainColor} from "./configs";
 import MyWeb from './view/WebPage'
 import PhotoView from './view/photo/PhotoView'
+import AddGankView from './view/sort/AddGankView'
 
 const statusBackColor = Platform.select({android: mainColor, ios: 'transparent'});
 
@@ -20,6 +21,7 @@ export default class RootView extends Component {
                         <Scene key="main" hideNavBar component={MainTab} initial={true}/>
                         <Scene key="webView" component={MyWeb}/>
                         <Scene key="photo" component={PhotoView}/>
+                        <Scene key="addGank" title="干货发布" component={AddGankView}/>
                     </Stack>
                 </Router>
             </View>

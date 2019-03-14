@@ -1,6 +1,6 @@
 //项目 主色调蓝色、注背景色、底部tab导航条色
 export const mainColor = '#6bbbe5';
-export const mainBackColor = '#f7f7f7';
+export const mainBackColor = '#f4fbff';
 export const navBackColor = 'white';
 
 //项目 分割线

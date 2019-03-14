@@ -1,6 +1,7 @@
 /** 基于fetch 封装的网络请求工具类 **/
 
 import {Component} from "react";
+import {showToast} from "../configs";
 
 /**
  * fetch 网络请求的header，可自定义header 内容
@@ -79,18 +80,17 @@ export default class HttpUtils extends Component {
             if (response.ok) {
                 return response.json();
             } else {
-                // alert("服务器繁忙，请稍后再试！");
+                showToast('服务器繁忙，请稍后再试！')
             }
         }).then((response) => {
-            // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
-            // 非 200，错误处理
             if (response.error) {
+                showToast(response.msg);
                 return response;
             } else {
                 return response;
             }
         }).catch((error) => {
-
+            showToast('当前网络不可用，请检查网络设置！')
         });
     };
 
@@ -112,17 +112,17 @@ export default class HttpUtils extends Component {
             if (response.ok) {
                 return response.json();
             } else {
-                // alert("服务器繁忙，请稍后再试；\r\nCode:" + response.status);
+                showToast('服务器繁忙，请稍后再试！')
             }
         }).then((response) => {
-            // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
-            if (response && response.code === 200) {
+            if (response.error) {
+                showToast(response.msg);
                 return response;
             } else {
                 return response;
             }
         }).catch((error) => {
-            // alert("当前网络不可用，请检查网络设置！");
+            showToast('当前网络不可用，请检查网络设置！')
         });
     };
 }

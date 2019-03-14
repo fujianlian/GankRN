@@ -12,7 +12,7 @@ import {
 import TabNavigator from "react-native-tab-navigator";
 
 import HomeView from './HomeView'
-import SortView from './SortView'
+import SortView from './sort/SortView'
 import GirlsTab from './photo/GirlsView'
 import PersonalView from './PersonalView'
 
