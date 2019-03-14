@@ -13,7 +13,7 @@ import TabNavigator from "react-native-tab-navigator";
 
 import HomeView from './HomeView'
 import SortView from './SortView'
-import GirlsView from './GirlsView'
+import GirlsTab from './GirlsView'
 import PersonalView from './PersonalView'
 
 import {mainColor, isIphoneX, C2, T6} from '../configs/index.js';
@@ -76,7 +76,7 @@ export default class MainTab extends Component {
                         renderIcon={() => <Image style={styles.icon} source={GirlIcon}/>}
                         renderSelectedIcon={() => <Image style={styles.icon} source={GirlSelectIcon}/>}
                         onPress={this._onPressTab.bind(this, 'girl')}>
-                        <GirlsView onPressTab={this._onPressTab.bind(this)}/>
+                        <GirlsTab onPressTab={this._onPressTab.bind(this)}/>
                     </TabNavigator.Item>
 
                     <TabNavigator.Item

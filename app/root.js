@@ -17,9 +17,9 @@ export default class RootView extends Component {
                     <StatusBar backgroundColor={statusBackColor}/>}
                 <Router createReducer={routerReducerCreate} backAndroidHandler={backAndroidHandler}>
                     <Stack {...FrameStyles}>
-                        <Scene key="main" component={MainTab} initial={true}/>
-                        <Scene key="webView" title="Web" component={MyWeb}/>
-                        <Scene key="photo" title="Web" component={PhotoView}/>
+                        <Scene key="main" hideNavBar component={MainTab} initial={true}/>
+                        <Scene key="webView" component={MyWeb}/>
+                        <Scene key="photo" component={PhotoView}/>
                     </Stack>
                 </Router>
             </View>
