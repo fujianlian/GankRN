@@ -1,5 +1,5 @@
-import { Platform, Dimensions, StyleSheet, PixelRatio } from "react-native"
-import { borderColor, mainColor, navBackColor, placeholderColor } from './index';
+import {Platform, Dimensions, StyleSheet, PixelRatio} from "react-native"
+import {borderColor, mainColor, navBackColor, placeholderColor} from './index';
 
 /*
  设备的像素密度，例如：
@@ -9,7 +9,7 @@ import { borderColor, mainColor, navBackColor, placeholderColor } from './index'
  PixelRatio.get() === 3          iPhone 6 plus , xxhdpi Android 设备 (480 dpi)
  PixelRatio.get() === 3.5        Nexus 6       */
 
-const { width, height } = Dimensions.get("window")
+const {width, height} = Dimensions.get("window")
 const fontScale = PixelRatio.getFontScale();     //返回字体大小缩放比例
 const pixelRatio = PixelRatio.get();             //当前设备的像素密度
 const defaultPixel = 2;
@@ -19,12 +19,12 @@ const w2 = 750 / defaultPixel;
 const h2 = 1334 / defaultPixel;
 const scale = Math.min(height / h2, width / w2);   //获取缩放比例
 
-const NavBarHeight = Platform.select({android:50, ios:70});
-const NavPaddingTop = Platform.select({android:0, ios:20})
-const NavBarContentH = Platform.select({android:NavBarHeight, ios:NavBarHeight-20})
+const NavBarHeight = Platform.select({android: 50, ios: 70});
+const NavPaddingTop = Platform.select({android: 0, ios: 20})
+const NavBarContentH = Platform.select({android: NavBarHeight, ios: NavBarHeight - 20})
 const lineWidth = StyleSheet.hairlineWidth;
-const Textpercent = Platform.select({android:0.5, ios:0.32})
-const SizePercent = Platform.select({android:1.1, ios:1})
+const Textpercent = Platform.select({android: 0.5, ios: 0.32})
+const SizePercent = Platform.select({android: 1.1, ios: 1})
 
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
@@ -51,7 +51,7 @@ export function isIphoneX() {
 
 
 /* 修正不同屏幕 字体和尺寸 */
-export function getResponsiveSize ( x ) {
+export function getResponsiveSize(x) {
     return scaleSize(x);
 }
 
@@ -73,19 +73,49 @@ export const T13 = scaleSize(46);
 
 /* 字号尺寸 */
 export const commonStyle = {
-    lineWidth:lineWidth,
-    line:{ height:lineWidth, backgroundColor: borderColor },
-    boldLine:{ height:0.8, backgroundColor: borderColor },
-    verticalLine:{ width:lineWidth, backgroundColor:borderColor },
-    navBar:{ backgroundColor:navBackColor, width:W, height:NavBarHeight, borderBottomWidth:lineWidth, borderBottomColor:borderColor, paddingTop:NavPaddingTop, flexDirection:'row', alignItems:'center'},
-    navBarHeight:NavBarHeight,
-    navBackColor:navBackColor,
-    navBarContentH:NavBarContentH,
-    navPaddingTop:NavPaddingTop,
-    centerText:{includeFontPadding:false, textAlign:'justify', textAlignVertical:'center'},
-    radiusView:{height:20, borderRadius:10, borderColor:mainColor, borderWidth:lineWidth, justifyContent:'center', alignItems:'center'},
-    radius26View:{height:20, borderRadius:1, borderColor:mainColor, borderWidth:lineWidth, justifyContent:'center', alignItems:'center'},
-    radiusDefaultView:{height:20, borderRadius:1, borderColor:placeholderColor, borderWidth:lineWidth, justifyContent:'center', alignItems:'center'},
+    lineWidth: lineWidth,
+    line: {height: lineWidth, backgroundColor: borderColor},
+    boldLine: {height: 0.8, backgroundColor: borderColor},
+    verticalLine: {width: lineWidth, backgroundColor: borderColor},
+    navBar: {
+        backgroundColor: navBackColor,
+        width: W,
+        height: NavBarHeight,
+        borderBottomWidth: lineWidth,
+        borderBottomColor: borderColor,
+        paddingTop: NavPaddingTop,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    navBarHeight: NavBarHeight,
+    navBackColor: navBackColor,
+    navBarContentH: NavBarContentH,
+    navPaddingTop: NavPaddingTop,
+    centerText: {includeFontPadding: false, textAlign: 'justify', textAlignVertical: 'center'},
+    radiusView: {
+        height: 20,
+        borderRadius: 10,
+        borderColor: mainColor,
+        borderWidth: lineWidth,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    radius26View: {
+        height: 20,
+        borderRadius: 1,
+        borderColor: mainColor,
+        borderWidth: lineWidth,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    radiusDefaultView: {
+        height: 20,
+        borderRadius: 1,
+        borderColor: placeholderColor,
+        borderWidth: lineWidth,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     headerBar: HeaderBar,
 }
 
@@ -99,10 +129,18 @@ function setSpText(size: number) {
 
 function scaleSize(size: number) {
     let sc;
-    if(pixelRatio == 2) sc = size/2;
+    if (pixelRatio == 2) sc = size / 2;
     else {
         size = Math.round(size * scale + 0.5);
-        sc = size/defaultPixel;
+        sc = size / defaultPixel;
     }
     return sc * SizePercent;
 }
+
+
+export const container = {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+};

@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import MainTab from './view/MainTab'
 import {C1, mainColor} from "./configs";
 import MyWeb from './view/WebPage'
-import PhotoView from './view/PhotoView'
+import PhotoView from './view/photo/PhotoView'
 
 const statusBackColor = Platform.select({android: mainColor, ios: 'transparent'});
 

@@ -13,7 +13,7 @@ import TabNavigator from "react-native-tab-navigator";
 
 import HomeView from './HomeView'
 import SortView from './SortView'
-import GirlsTab from './GirlsView'
+import GirlsTab from './photo/GirlsView'
 import PersonalView from './PersonalView'
 
 import {mainColor, isIphoneX, C2, T6} from '../configs/index.js';

@@ -1,19 +1,18 @@
 import React, {Component} from "react";
 import {
-    ActivityIndicator,
     Image,
     FlatList,
     StyleSheet,
-    Text,
-    View,
     TouchableHighlight,
     TouchableOpacity,
     DeviceEventEmitter
 } from "react-native";
-import {getCategoryData} from "../http/api_gank";
+import {getCategoryData} from "../../http/api_gank";
 import {Actions} from 'react-native-router-flux';
-import {isIphoneX, mainColor} from "../configs";
+import {isIphoneX, mainColor} from "../../configs";
 import {createAppContainer, createStackNavigator} from "react-navigation";
+import WaitLoadingView from "../component/WaitLoadingView";
+import ErrorView from "../component/ErrorView";
 
 //屏幕信息
 const dimensions = require('Dimensions');
@@ -35,7 +34,6 @@ class GirlsView extends Component {
             page: 1,
             column: 2,
         };
-        this.title = "妹纸";
     }
 
     static navigationOptions = ({navigation}) => ({
@@ -50,7 +48,7 @@ class GirlsView extends Component {
                 }}>
                 <Image
                     style={{height: 25, width: 25,}}
-                    source={require('../image/switch.png')}
+                    source={require('../../image/switch.png')}
                 />
             </TouchableOpacity>)
     });
@@ -90,9 +88,6 @@ class GirlsView extends Component {
     }
 
     componentDidMount() {
-        let title = "妹纸";
-        this.title = title;
-        Actions.refresh(title);
         //请求数据
         this.fetchData();
     }
@@ -100,20 +95,6 @@ class GirlsView extends Component {
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
         let title = "妹纸";
         Actions.refresh(title);
-    }
-
-    //加载等待的view
-    static renderLoadingView() {
-        return (
-            <View style={styles.container}>
-                <ActivityIndicator
-                    animating={true}
-                    style={[styles.gray, {height: 80}]}
-                    color={mainColor}
-                    size="large"
-                />
-            </View>
-        );
     }
 
     renderData() {
@@ -143,19 +124,19 @@ class GirlsView extends Component {
     render() {
         //第一次加载等待的view
         if (this.state.isLoading && !this.state.error) {
-            return GirlsView.renderLoadingView();
+            return <WaitLoadingView/>;
         } else if (this.state.error) {
-            //请求失败view
-            return GirlsView.renderErrorView(this.state.errorInfo);
+            return <ErrorView error={this.state.errorInfo}/>;
         }
         //加载数据
         return this.renderData();
     }
 
     renderItemView(item) {
-        let w = this.state.column === 2 ? width * 0.5 - 7 : width - 7;
-        let h = this.state.column === 2 ? width * 0.60 - 7 : width * 0.8 - 7;
-        let style = this.state.column === 2 ? styles.itemPadding : styles.itemPadding1;
+        let isDouble = this.state.column === 2;
+        let w = isDouble ? width * 0.5 - 7 : width - 7;
+        let h = isDouble ? width * 0.60 - 7 : width * 0.8 - 7;
+        let style = isDouble ? styles.itemPadding : styles.itemPadding1;
         return (
             <TouchableHighlight
                 style={style}
@@ -165,30 +146,11 @@ class GirlsView extends Component {
                 }>
                 <Image source={{uri: item.url}} style={{height: h, width: w}}/>
             </TouchableHighlight>
-
         );
     }
-
-    static renderErrorView(error) {
-        return (
-            <View style={styles.container}>
-                <Text>
-                    Fail: {error}
-                </Text>
-            </View>
-        );
-    }
-
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
     title: {
         fontSize: 15,
         color: 'blue',
