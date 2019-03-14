@@ -9,8 +9,17 @@ import RootView from './root'
 export default class GankRN extends Component {
 
     componentDidMount() {
-        // 启动页隐藏
-        SplashScreen.hide();
+        this.timer = setTimeout(
+            () => {
+                // 启动页隐藏
+                SplashScreen.hide();
+            },
+            500
+        );
+    }
+
+    componentWillUnmount() {
+        this.timer && clearTimeout(this.timer);
     }
 
     render() {

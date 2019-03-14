@@ -120,6 +120,7 @@ class GirlsView extends Component {
                 onRefresh={this._onFresh.bind(this)}
                 refreshing={this.state.isRefreshing}
                 numColumns={this.state.column}
+                maxToRenderPerBatch={6}
                 getItemLayout={(data, index) => (
                     this.state.column === 2
                         ? {length: screenWidth * 0.60, offset: screenWidth * 0.60 * index, index}
@@ -127,7 +128,6 @@ class GirlsView extends Component {
                 )}
                 ListFooterComponent={this._renderFooter.bind(this)}
                 onEndReached={this._onEndReached.bind(this)}
-                onEndReachedThreshold={1}
             />
         );
     }
