@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-    Image,
     TextInput,
     View,
     TouchableOpacity,
@@ -10,6 +9,7 @@ import {
 import {background, C21, mainColor, screenWidth, showToast} from "../../configs";
 import {add2Gank} from "../../http/api_gank";
 import {Actions} from "react-native-router-flux";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const margin = Platform.select({android: 12, ios: 0});
 const pickWidth = Platform.select({android: screenWidth - 12, ios: screenWidth});
@@ -122,10 +122,13 @@ export default class AddGankView extends Component {
 
 AddGankView.renderRightButton = (props) => {
     return (
-        <TouchableOpacity activeOpacity={0.5} onPress={() => {
-            DeviceEventEmitter.emit('send');
-        }} style={{padding: 10}}>
-            <Image source={require('../../image/right.png')} style={{height: 27, width: 27}}/>
+        <TouchableOpacity
+            activeOpacity={0.5}
+            style={{paddingStart: 15, paddingEnd: 15}}
+            onPress={() => {
+                DeviceEventEmitter.emit('send');
+            }}>
+            <Icon name={'md-checkmark'} size={28} color={'white'}/>
         </TouchableOpacity>
     )
 };

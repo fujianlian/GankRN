@@ -14,6 +14,7 @@ import {createAppContainer, createStackNavigator} from "react-navigation";
 import WaitLoadingView from "../component/WaitLoadingView";
 import ErrorView from "../component/ErrorView";
 import {UltimateListView} from "react-native-ultimate-listview";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const RefreshableMode = Platform.select({ios: 'advanced', android: 'basic'})
 
@@ -26,7 +27,6 @@ class GirlsView extends Component {
             //网络请求状态
             error: false,
             errorInfo: "",
-            dataArray: [],
             column: 2,
             layout: "grid"
         };
@@ -42,10 +42,7 @@ class GirlsView extends Component {
                 onPress={() => {
                     DeviceEventEmitter.emit('rightNavBarAction');
                 }}>
-                <Image
-                    style={{height: 25, width: 25,}}
-                    source={require('../../image/switch.png')}
-                />
+                <Icon name={'ios-options'} size={26} color={'white'}/>
             </TouchableOpacity>)
     });
 
@@ -70,21 +67,9 @@ class GirlsView extends Component {
     fetchData = (page = 1, startFetch, abortFetch) => {
         getCategoryData("福利", page)
             .then((list) => {
-                let dataBlob = [];
-                if (page === 1) {
-                    dataBlob = list.results;
-                } else {
-                    dataBlob = this.state.dataArray;
-                    list.results.map(function (item) {
-                        dataBlob.push(item);
-                    });
-                }
                 this.setState({
-                    dataArray: dataBlob,
                     isLoading: false,
                 });
-                console.log(dataBlob);
-                dataBlob = null;
                 startFetch(list.results, 16)
             })
             .catch((err) => {
@@ -151,7 +136,7 @@ class RenderItemView extends PureComponent {
         return (
             <TouchableHighlight
                 style={style}
-                underlayColor='transparent'
+                activeOpacity={0.5}
                 onPress={() =>
                     Actions.photo({"url": this.props.item.url, "title": this.props.item.desc})
                 }>
