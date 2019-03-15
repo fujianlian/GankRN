@@ -1,25 +1,21 @@
-import React, {Component} from "react";
+import React, {Component, PureComponent} from "react";
 import {
     Image,
-    FlatList,
     StyleSheet,
     TouchableHighlight,
     TouchableOpacity,
-    DeviceEventEmitter, View, Text
+    DeviceEventEmitter,
+    Platform,
 } from "react-native";
 import {getCategoryData} from "../../http/api_gank";
 import {Actions} from 'react-native-router-flux';
-import {isIphoneX, mainColor, screenWidth} from "../../configs";
+import {mainColor, screenWidth} from "../../configs";
 import {createAppContainer, createStackNavigator} from "react-navigation";
 import WaitLoadingView from "../component/WaitLoadingView";
 import ErrorView from "../component/ErrorView";
-import FootLoadMore from "../component/FootLoadMore";
-import FootNoMore from "../component/FootNoMore";
+import {UltimateListView} from "react-native-ultimate-listview";
 
-const marginBottom = isIphoneX() ? 20 : 0;
-
-let pageNo = 1;
-let isLoadFinish = false;
+const RefreshableMode = Platform.select({ios: 'advanced', android: 'basic'})
 
 class GirlsView extends Component {
 
@@ -27,14 +23,12 @@ class GirlsView extends Component {
         super(props);
         this.state = {
             isLoading: true,
-            isRefreshing: false,
             //网络请求状态
             error: false,
             errorInfo: "",
             dataArray: [],
             column: 2,
-            // 控制foot， 0：隐藏footer  1：已加载完成,没有更多数据   2 ：显示加载中
-            showFoot: 0,
+            layout: "grid"
         };
     }
 
@@ -59,28 +53,25 @@ class GirlsView extends Component {
         DeviceEventEmitter.addListener('rightNavBarAction', this.setColumn.bind(this));
     }
 
-
     componentWillUnmount() {
         DeviceEventEmitter.removeAllListeners('rightNavBarAction');
     }
 
     setColumn() {
         let c = this.state.column === 2 ? 1 : 2;
+        let d = this.state.column === 2 ? 'grid' : 'list';
         this.setState({
             column: c,
+            layout: d,
         });
     }
 
     //网络请求
-    fetchData(page): Function {
+    fetchData = (page = 1, startFetch, abortFetch) => {
         getCategoryData("福利", page)
             .then((list) => {
-                let foot = 0;
-                if (list == null || list.results.length < 16) {
-                    foot = 1;
-                }
                 let dataBlob = [];
-                if (pageNo === 1) {
+                if (page === 1) {
                     dataBlob = list.results;
                 } else {
                     dataBlob = this.state.dataArray;
@@ -91,72 +82,45 @@ class GirlsView extends Component {
                 this.setState({
                     dataArray: dataBlob,
                     isLoading: false,
-                    isRefreshing: false,
-                    showFoot: foot,
                 });
+                console.log(dataBlob);
                 dataBlob = null;
+                startFetch(list.results, 16)
             })
-            .catch((error) => {
+            .catch((err) => {
+                abortFetch();
                 this.setState({
                     error: true,
-                    errorInfo: error
+                    errorInfo: err
                 })
             });
-    }
+    };
 
     componentDidMount() {
         //请求数据
-        this.fetchData(pageNo);
+        this.fetchData();
     }
 
     renderData() {
         return (
-            <FlatList
-                style={{marginBottom: marginBottom,}}
-                data={this.state.dataArray}
-                renderItem={({item}) => this.renderItemView(item)}
-                key={(this.state.column === 2 ? 'vShow' : 'hShow')}
-                keyExtractor={(item, index) => index.toString()}
-                onRefresh={this._onFresh.bind(this)}
-                refreshing={this.state.isRefreshing}
+            <UltimateListView
+                ref={ref => this.listView = ref}
+                refreshableTitleRefreshing={'正在加载...'}
+                key={this.state.layout}
+                onFetch={this.fetchData.bind(this)}
+                keyExtractor={(item, index) => `${index} - ${item}`}
+                refreshableMode={RefreshableMode}
+                item={this.renderItemView.bind(this)}
                 numColumns={this.state.column}
-                maxToRenderPerBatch={6}
+                maxToRenderPerBatch={this.state.column === 2 ? 3 : 6}
+                updateCellsBatchingPeriod={100}
                 getItemLayout={(data, index) => (
                     this.state.column === 2
                         ? {length: screenWidth * 0.60, offset: screenWidth * 0.60 * index, index}
                         : {length: screenWidth * 0.8, offset: screenWidth * 0.8 * index, index}
                 )}
-                ListFooterComponent={this._renderFooter.bind(this)}
-                onEndReached={this._onEndReached.bind(this)}
             />
         );
-    }
-
-    _onFresh() {
-        pageNo = 1;
-        this.fetchData(pageNo);
-    }
-
-    _renderFooter() {
-        if (this.state.showFoot === 1) {
-            return (<FootNoMore/>);
-        } else if (this.state.showFoot === 2) {
-            return (<FootLoadMore/>);
-        } else if (this.state.showFoot === 0) {
-            return (<View/>);
-        }
-    }
-
-    _onEndReached() {
-        // 如果是正在加载中或没有更多数据了，则返回
-        if (this.state.showFoot !== 0 || isLoadFinish) {
-            return;
-        }
-        pageNo++;
-        // 底部显示正在加载更多数据
-        this.setState({showFoot: 2});
-        // 获取数据
-        this.fetchData(pageNo);
     }
 
     render() {
@@ -170,8 +134,17 @@ class GirlsView extends Component {
         return this.renderData();
     }
 
-    renderItemView(item) {
-        let isDouble = this.state.column === 2;
+    renderItemView(item, index, separator) {
+        return (
+            <RenderItemView column={this.state.column} item={item}/>
+        );
+    }
+}
+
+class RenderItemView extends PureComponent {
+
+    render(): React.ReactNode {
+        let isDouble = this.props.column === 2;
         let w = isDouble ? screenWidth * 0.5 - 7 : screenWidth - 7;
         let h = isDouble ? screenWidth * 0.60 - 7 : screenWidth * 0.8 - 7;
         let style = isDouble ? styles.itemPadding : styles.itemPadding1;
@@ -180,11 +153,13 @@ class GirlsView extends Component {
                 style={style}
                 underlayColor='transparent'
                 onPress={() =>
-                    Actions.photo({"url": item.url, "title": item.desc})
+                    Actions.photo({"url": this.props.item.url, "title": this.props.item.desc})
                 }>
                 <Image
                     defaultSource={require('../../image/fuli.png')}
-                    source={{uri: item.url}} style={{height: h, width: w}}
+                    source={{uri: this.props.item.url}} style={{height: h, width: w}}
+                    // 将图片降尺寸后再加载到内存中，就会减少很多内存开销
+                    resizeMethod="resize"
                 />
             </TouchableHighlight>
         );
