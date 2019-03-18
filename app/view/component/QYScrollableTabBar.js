@@ -123,7 +123,7 @@ const QYScrollableTabBar = createReactClass({
         }
     },
     renderDot(page){
-        if (page == 0 && this.props.showDot){
+        if (page === 0 && this.props.showDot){
             return(
                 <View style={{height:5,width:5,borderRadius:2.5,backgroundColor:'#ea4200',marginTop: -20}}/>
             )
@@ -228,7 +228,7 @@ module.exports.QYScrollableTabBar = QYScrollableTabBar;
 
 const styles = StyleSheet.create({
     tab: {
-        height: 49,
+        height: 46,
         alignItems: 'center',
         justifyContent: 'center',
         paddingLeft: 20,
@@ -236,8 +236,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     container: {
-        height: 50,
-        borderWidth: 1,
+        height: 46,
+        borderWidth: 0.5,
         borderTopWidth: 0,
         borderLeftWidth: 0,
         borderRightWidth: 0,

@@ -4,14 +4,16 @@ import {Actions} from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import {createAppContainer, createStackNavigator} from "react-navigation";
 import {C1, mainColor} from "../../configs";
-import {SortTabView} from "./SortTabView";
 import {QYScrollableTabBar} from "../component/QYScrollableTabBar";
 import Icon from 'react-native-vector-icons/Ionicons';
+import FuliView from './FuliView';
+import GankSortView from "./GankSortView";
+import AndroidView from "./AndroidView";
 
-class SortView extends Component {
+class GankView extends Component {
 
     static navigationOptions = ({navigation}) => ({
-        title: `分类`,
+        title: `干货营`,
         headerTintColor: "white",
         headerStyle: {backgroundColor: mainColor},
         headerRight: (
@@ -36,14 +38,10 @@ class SortView extends Component {
                 tabBarInactiveTextColor={C1}
                 tabBarUnderlineStyle={{height: 2, backgroundColor: mainColor}}
             >
-                <SortTabView tabLabel="全部"/>
-                <SortTabView tabLabel="Android"/>
-                <SortTabView tabLabel="iOS"/>
-                <SortTabView tabLabel="App"/>
-                <SortTabView tabLabel="前端"/>
-                <SortTabView tabLabel="休息视频"/>
-                <SortTabView tabLabel="拓展资源"/>
-                <SortTabView tabLabel="瞎推荐"/>
+                <FuliView tabLabel="每日推荐"/>
+                <FuliView tabLabel="福利"/>
+                <GankSortView tabLabel="干货定制"/>
+                <AndroidView tabLabel="安卓"/>
             </ScrollableTabView>
         );
     }
@@ -52,18 +50,18 @@ class SortView extends Component {
 
 const RootStack = createStackNavigator(
     {
-        sort: {
-            screen: SortView,
+        gank: {
+            screen: GankView,
         },
     },
     {
-        initialRouteName: 'sort',
+        initialRouteName: 'gank',
     }
 );
 
 const AppContainer = createAppContainer(RootStack);
 
-export default class SortTab extends React.Component {
+export default class GankTab extends React.Component {
     render() {
         return <AppContainer/>;
     }

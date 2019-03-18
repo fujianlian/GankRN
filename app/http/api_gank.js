@@ -1,4 +1,4 @@
-import {getFetch, postFetch} from "./http_extension";
+import {getFetch, postFetch} from "./http_gank_extension";
 
 const base_url = "http://gank.io/api/";
 

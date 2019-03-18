@@ -58,9 +58,9 @@ export default class HomeTabBar extends Component {
                 <View style={styles.tabItem}>
                     <Icon
                         name={this.props.tabIconNames[i]} // 图标 调用传入的属性
-                        size={28}
+                        size={27}
                         color={color}/>
-                    <Text style={{color: color,fontSize:13}}>
+                    <Text style={{color: color,fontSize:12,marginTop:1}}>
                         {this.props.tabNames[i]}
                     </Text>
                 </View>
@@ -72,7 +72,7 @@ export default class HomeTabBar extends Component {
 }
 
 const paddingBottom = isIphoneX() ? 15 : 0;
-const height = isIphoneX() ? 70 : 55;
+const height = isIphoneX() ? 68 : 52;
 
 const styles = StyleSheet.create({
     tabs: {

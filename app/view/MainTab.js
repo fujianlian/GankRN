@@ -4,21 +4,21 @@
  */
 import React, {Component} from 'react';
 
-import HomeView from './HomeView'
-import SortView from './sort/SortView'
-import GirlsTab from './photo/GirlsView'
+import HomeTab from './wanandroid/HomeView'
+import GankTab from './gank/GankView'
 import PersonalView from './PersonalView'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import HomeTabBar from '../view/component/HomeTabBar';
+import {mainBackColor} from "../configs";
 
 export default class MainTab extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            tabNames: ['主页', '分类', '妹纸', '我的'],
-            tabIconNames: ['ios-home', 'ios-grid', 'ios-image', 'ios-contact'],
+            tabNames: ['玩安卓', '干货营', '我的'],
+            tabIconNames: ['logo-android', 'ios-grid', 'ios-contact'],
         };
     }
 
@@ -27,14 +27,14 @@ export default class MainTab extends Component {
         let tabIconNames = this.state.tabIconNames;
         return (
             <ScrollableTabView
+                style={{backgroundColor: mainBackColor}}
                 renderTabBar={() => <HomeTabBar tabNames={tabNames} tabIconNames={tabIconNames}/>}
                 tabBarPosition={'bottom'}
                 locked={true}
                 initialPage={0}
                 scrollWithoutAnimation={true}>
-                <HomeView/>
-                <SortView/>
-                <GirlsTab/>
+                <HomeTab/>
+                <GankTab/>
                 <PersonalView/>
             </ScrollableTabView>
         );

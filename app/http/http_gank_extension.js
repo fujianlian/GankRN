@@ -1,6 +1,6 @@
 /** 网络请求工具类的拓展类，便于后期网络层修改维护 **/
 
-import HttpUtils from "./http_utils";
+import HttpUtils from "./http_gank_utils";
 import {dataCache} from "./http_cache";
 
 /**

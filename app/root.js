@@ -6,7 +6,8 @@ import MainTab from './view/MainTab'
 import {C1, mainColor} from "./configs";
 import MyWeb from './view/WebPage'
 import PhotoView from './view/photo/PhotoView'
-import AddGankView from './view/sort/AddGankView'
+import AddGankView from './view/gank/AddGankView'
+import SwipeExample from './view/SwipeExample'
 
 const statusBackColor = Platform.select({android: mainColor, ios: 'transparent'});
 
@@ -22,6 +23,7 @@ export default class RootView extends Component {
                         <Scene key="webView" component={MyWeb}/>
                         <Scene key="photo" component={PhotoView}/>
                         <Scene key="addGank" title="干货发布" component={AddGankView}/>
+                        <Scene key="swipes" title="干货发布" component={SwipeExample}/>
                     </Stack>
                 </Router>
             </View>
