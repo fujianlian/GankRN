@@ -39,7 +39,6 @@ export default class HomeTabBar extends Component {
     }
 
     setAnimationValue({value}) {
-        console.log('动画值：' + value);
     }
 
     //  处理tabbar的颜色和字体及图标

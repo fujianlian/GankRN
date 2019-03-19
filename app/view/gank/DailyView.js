@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import {Image, Text, TouchableWithoutFeedback, View} from "react-native";
-import {mainBackColor, mainColor, screenWidth} from "../../configs";
+import {Platform, Image, Text, TouchableWithoutFeedback, View} from "react-native";
+import {mainColor, screenWidth} from "../../configs";
 
 import {getQQBanner} from "../../http/api_wan_android";
 import Swiper from 'react-native-swiper'
 import {Actions} from "react-native-router-flux";
 
-const h = screenWidth * 0.4;
+const h = Platform.select({'android': screenWidth * 0.4, "ios": screenWidth * 0.44});
 const styles = {
 
     slide: {

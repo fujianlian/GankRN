@@ -1,15 +1,12 @@
-import React, {Component, PureComponent} from "react";
+import React, {Component} from "react";
 import {
     View,
     Text,
     StyleSheet,
-    Image,
     TouchableHighlight,
-    TouchableNativeFeedback,
 } from "react-native";
 import {getCategoryData} from "../../http/api_gank";
-import {Actions} from 'react-native-router-flux';
-import {C2, C3, C9, mainColor, screenWidth} from "../../configs";
+import {C2, C9, mainColor} from "../../configs";
 import WaitLoadingView from "../component/WaitLoadingView";
 import ErrorView from "../component/ErrorView";
 import {UltimateListView} from "react-native-ultimate-listview";
@@ -70,9 +67,6 @@ export default class GankSortView extends Component {
                 item={this.renderItemView.bind(this)}
                 maxToRenderPerBatch={16}
                 updateCellsBatchingPeriod={100}
-                getItemLayout={(data, index) => (
-                    {length: screenWidth * 0.65, offset: screenWidth * 0.65 * index, index}
-                )}
             />
         );
     }
@@ -122,7 +116,7 @@ const styles = StyleSheet.create({
     header: {
         marginHorizontal: 10,
         marginTop: 15,
-        marginBottom:5,
+        marginBottom: 5,
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'center',
@@ -151,26 +145,3 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8f8f8'
     }
 });
-
-class RenderItemView extends PureComponent {
-
-    render(): React.ReactNode {
-        let w = screenWidth * 0.5 - 7;
-        let h = screenWidth * 0.65 - 7;
-        return (
-            <TouchableHighlight
-                underlayColor={TouchableNativeFeedback.SelectableBackground}
-                onPress={() =>
-                    Actions.photo({"url": this.props.item.url, "title": this.props.item.desc})
-                }>
-                <Image
-                    defaultSource={require('../../image/fuli.png')}
-                    source={{uri: this.props.item.url}} style={{height: h, width: w}}
-                    // 将图片降尺寸后再加载到内存中，就会减少很多内存开销
-                    resizeMethod="resize"
-                />
-            </TouchableHighlight>
-        );
-    }
-}
-

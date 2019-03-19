@@ -24,6 +24,15 @@ export const getBanner = () => {
 };
 
 /**
+ * 首页文章列表
+ * @param page 第几页
+ */
+export const getHomeList = (page) => {
+    console.log('page='+page);
+    return getFetch(service_url(`article/list/${page}/json`));
+};
+
+/**
  * 最新项目列表
  * @param page 页码
  */

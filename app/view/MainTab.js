@@ -17,8 +17,8 @@ export default class MainTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabNames: ['玩安卓', '干货营', '我的'],
-            tabIconNames: ['logo-android', 'ios-grid', 'ios-contact'],
+            tabNames: ['干货营', '玩安卓', '我的'],
+            tabIconNames: ['ios-grid', 'logo-android', 'ios-contact'],
         };
     }
 
@@ -33,8 +33,8 @@ export default class MainTab extends Component {
                 locked={true}
                 initialPage={0}
                 scrollWithoutAnimation={true}>
-                <HomeTab/>
                 <GankTab/>
+                <HomeTab/>
                 <PersonalView/>
             </ScrollableTabView>
         );

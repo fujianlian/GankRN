@@ -37,8 +37,6 @@ export default class AndroidView extends Component {
             });
     };
 
-
-
     renderData() {
         return (
             <UltimateListView

@@ -38,7 +38,7 @@ export default class GankItemView extends PureComponent {
                     numberOfLines={3}
                     style={{
                         color: C1,
-                        fontSize: 16,
+                        fontSize: 15,
                         lineHeight: 20,
                         flex: 1,
                     }}>{this.props.item.desc}</Text>
