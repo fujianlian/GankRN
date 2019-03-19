@@ -58,7 +58,6 @@ export default class AddGankView extends Component {
                     onChangeText={(text) => this.setState({desc: text})}
                     padding={0}
                     clearButtonMode={'while-editing'}
-                    autoFocus={true}
                     selectionColor={mainColor}
                     value={this.state.text}
                 />
