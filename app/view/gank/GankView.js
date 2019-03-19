@@ -3,9 +3,10 @@ import {TouchableOpacity} from "react-native";
 import {Actions} from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import {createAppContainer, createStackNavigator} from "react-navigation";
-import {C1, mainColor} from "../../configs";
+import {C1, mainBackColor, mainColor} from "../../configs";
 import {QYScrollableTabBar} from "../component/QYScrollableTabBar";
 import Icon from 'react-native-vector-icons/Ionicons';
+import DailyView from './DailyView';
 import FuliView from './FuliView';
 import GankSortView from "./GankSortView";
 import AndroidView from "./AndroidView";
@@ -31,14 +32,14 @@ class GankView extends Component {
         return (
             <ScrollableTabView
                 renderTabBar={() => <QYScrollableTabBar/>}
-                initialPage={1}
-                style={{borderBottomWidth: 0}}
+                initialPage={0}
+                style={{borderBottomWidth: 0, backgroundColor: mainBackColor}}
                 tabBarActiveTextColor={mainColor}
                 tabBarTextStyle={{fontSize: 15}}
                 tabBarInactiveTextColor={C1}
                 tabBarUnderlineStyle={{height: 2, backgroundColor: mainColor}}
             >
-                <FuliView tabLabel="每日推荐"/>
+                <DailyView tabLabel="每日推荐"/>
                 <FuliView tabLabel="福利"/>
                 <GankSortView tabLabel="干货定制"/>
                 <AndroidView tabLabel="安卓"/>

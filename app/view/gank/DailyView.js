@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {Image, Text, TouchableWithoutFeedback, View} from "react-native";
-import {createAppContainer, createStackNavigator} from "react-navigation";
-import {mainColor, screenWidth} from "../../configs";
+import {mainBackColor, mainColor, screenWidth} from "../../configs";
 
-import {getBanner} from "../../http/api_wan_android";
+import {getQQBanner} from "../../http/api_wan_android";
 import Swiper from 'react-native-swiper'
 import {Actions} from "react-native-router-flux";
 
@@ -40,7 +39,8 @@ const styles = {
 
 };
 
-class HomeView extends Component {
+// 每日推荐
+export default class DailyView extends Component {
 
     constructor(props) {
         super(props);
@@ -51,30 +51,13 @@ class HomeView extends Component {
     }
 
     componentDidMount() {
-        this.getBanners();
-    }
-
-    //网络请求
-    getBanners() {
-        getBanner()
+        getQQBanner()
             .then((list) => {
                 this.setState({
-                    data: list.data,
+                    data: list.data.slider,
                 });
             })
-            .catch((err) => {
-                this.setState({
-                    error: true,
-                    errorInfo: err
-                })
-            });
-    };
-
-    static navigationOptions = ({navigation}) => ({
-        title: `玩安卓`,
-        headerTintColor: "white",
-        headerStyle: {backgroundColor: mainColor},
-    });
+    }
 
     render() {
         return (
@@ -91,17 +74,7 @@ class HomeView extends Component {
                                 )
                             }}
                             dot={<View style={{
-                                backgroundColor: 'rgba(0,0,0,.5)',
-                                width: 5,
-                                height: 5,
-                                borderRadius: 4,
-                                marginLeft: 3,
-                                marginRight: 3,
-                                marginTop: 3,
-                                marginBottom: 3
-                            }}/>}
-                            activeDot={<View style={{
-                                backgroundColor: 'red',
+                                backgroundColor: 'rgba(255,255,255,.5)',
                                 width: 8,
                                 height: 8,
                                 borderRadius: 4,
@@ -110,16 +83,21 @@ class HomeView extends Component {
                                 marginTop: 3,
                                 marginBottom: 3
                             }}/>}
-                            paginationStyle={{
-                                bottom: 7, left: null, right: 10
-                            }}>
+                            activeDot={<View style={{
+                                backgroundColor: mainColor,
+                                width: 8,
+                                height: 8,
+                                borderRadius: 4,
+                                marginLeft: 3,
+                                marginRight: 3,
+                                marginTop: 3,
+                                marginBottom: 3
+                            }}/>}
+                            paginationStyle={{bottom: 7,}}>
                             {
                                 this.state.data.map((value, i) => this.renderItem(value, i))
                             }
                         </Swiper>
-                        <View style={styles.views}>
-                            <Text numberOfLines={1} style={styles.text}>{this.state.data[this.state.index].title}</Text>
-                        </View>
                     </View> : <Text/>}
             </View>
         );
@@ -131,31 +109,10 @@ class HomeView extends Component {
                 key={'index' + i}
                 style={styles.slide}
                 onPress={() => {
-                    Actions.webView({"url": value.url, "title": value.title});
+                    Actions.webView({"url": value.linkUrl});
                 }}>
-                <Image resizeMode='stretch' style={styles.image} source={{uri: value.imagePath}}/>
+                <Image resizeMode='stretch' style={styles.image} source={{uri: value.picUrl}}/>
             </TouchableWithoutFeedback>
-
         );
-    }
-}
-
-
-const RootStack = createStackNavigator(
-    {
-        home: {
-            screen: HomeView,
-        },
-    },
-    {
-        initialRouteName: 'home',
-    }
-);
-
-const AppContainer = createAppContainer(RootStack);
-
-export default class HomeTab extends React.Component {
-    render() {
-        return <AppContainer/>;
     }
 }

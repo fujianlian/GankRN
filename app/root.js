@@ -4,7 +4,7 @@ import {View, StatusBar, StyleSheet, Platform, BackHandler} from 'react-native';
 import React, {Component} from 'react';
 import MainTab from './view/MainTab'
 import {C1, mainColor} from "./configs";
-import MyWeb from './view/WebPage'
+import MyWeb from './view/WebPageView'
 import PhotoView from './view/photo/PhotoView'
 import AddGankView from './view/gank/AddGankView'
 import SwipeExample from './view/SwipeExample'

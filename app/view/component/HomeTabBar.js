@@ -3,7 +3,6 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -21,17 +20,15 @@ export default class HomeTabBar extends Component {
     static propTypes = {
         goToPage: PropTypes.func, // 跳转到对应tab的方法
         activeTab: PropTypes.number, // 当前被选中的tab下标
-        tabs: PropTypes.array, // 所有tabs集合
         tabNames: PropTypes.array, // 保存Tab名称
         tabIconNames: PropTypes.array, // 保存Tab图标
     };  // 注意这里有分号
-
 
     render() {
         return (
             <View style={styles.tabs}>
                 {/*遍历。系统会提供一个tab和下标 调用一个自定义的方法*/}
-                {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
+                {this.props.tabNames.map((tab, i) => this.renderTabOption(tab, i))}
             </View>
         );
     }
@@ -49,18 +46,17 @@ export default class HomeTabBar extends Component {
     renderTabOption(tab, i) {
         let color = this.props.activeTab === i ? mainColor : C2; // 判断i是否是当前选中的tab，设置不同的颜色
         return (
-            //因为要有点击效果 所以要引入可触摸组件
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => this.props.goToPage(i)}
                 style={styles.tab}
-                key={tab}>
+                key={tab === undefined ? 'tab' : tab.toString()}>
                 <View style={styles.tabItem}>
                     <Icon
                         name={this.props.tabIconNames[i]} // 图标 调用传入的属性
                         size={27}
                         color={color}/>
-                    <Text style={{color: color,fontSize:12,marginTop:1}}>
+                    <Text style={{color: color, fontSize: 12, marginTop: 1}}>
                         {this.props.tabNames[i]}
                     </Text>
                 </View>
@@ -88,7 +84,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
     tabItem: {
         flexDirection: 'column',
         alignItems: 'center',

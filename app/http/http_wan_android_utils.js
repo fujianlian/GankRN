@@ -83,14 +83,26 @@ export default class HttpUtils extends Component {
                 showToast('服务器繁忙，请稍后再试！')
             }
         }).then((response) => {
-            if (response.errorCode !== 0) {
-                showToast(response.errorMsg);
-                return response;
+            if (url.startsWith('https://www.wanandroid.com/')) {
+                if (response.errorCode !== 0) {
+                    showToast(response.errorMsg);
+                    return response;
+                } else {
+                    return response;
+                }
             } else {
-                return response;
+                if (response.code !== 0) {
+                    return JSON.parse(qqData);
+                } else {
+                    return JSON.parse(qqData);
+                }
             }
         }).catch((error) => {
-            showToast('当前网络不可用，请检查网络设置！')
+            if (url.startsWith('https://www.wanandroid.com/')) {
+                showToast('当前网络不可用，请检查网络设置！')
+            } else {
+                return JSON.parse(qqData);
+            }
         });
     };
 
@@ -126,3 +138,36 @@ export default class HttpUtils extends Component {
         });
     };
 }
+
+const qqData = "{" +
+    "    \"code\": 0," +
+    "    \"data\": {" +
+    "        \"slider\": [" +
+    "            {" +
+    "                \"linkUrl\": \"http://y.qq.com/w/album.html?albummid=001yK59e03vJw8\"," +
+    "                \"picUrl\": \"http://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/1211744.jpg\"," +
+    "                \"id\": 20243" +
+    "            }," +
+    "            {" +
+    "                \"linkUrl\": \"https://y.qq.com/portal/headline/detail.html?zid=1188682\"," +
+    "                \"picUrl\": \"http://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/1211809.jpg\"," +
+    "                \"id\": 20219" +
+    "            }," +
+    "            {" +
+    "                \"linkUrl\": \"https://y.qq.com/msa/362/190_6978.html?openinqqmusic=1\"," +
+    "                \"picUrl\": \"http://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/1208359.jpg\"," +
+    "                \"id\": 20199" +
+    "            }," +
+    "            {" +
+    "                \"linkUrl\": \"https://y.qq.com/apg/zssphy/index.html?mbref=978.20117&openinqqmusic=1\"," +
+    "                \"picUrl\": \"http://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/1207125.jpg\"," +
+    "                \"id\": 20149" +
+    "            }," +
+    "            {" +
+    "                \"linkUrl\": \"http://y.qq.com/w/taoge.html?id=6701831734\"," +
+    "                \"picUrl\": \"http://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/1207484.jpg\"," +
+    "                \"id\": 20189" +
+    "            }" +
+    "        ]" +
+    "    }" +
+    "}";

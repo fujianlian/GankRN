@@ -4,7 +4,6 @@ import {
     StyleSheet,
     TouchableHighlight,
     Platform,
-    TouchableNativeFeedback
 } from "react-native";
 import {getCategoryData} from "../../http/api_gank";
 import {Actions} from 'react-native-router-flux';
@@ -102,8 +101,9 @@ class RenderItemView extends PureComponent {
         let style = styles.itemPadding;
         return (
             <TouchableHighlight
+                key={this.props.item._id}
                 style={style}
-                underlayColor={TouchableNativeFeedback.SelectableBackground}
+                underlayColor={'rgba(255,255,255,0.5)'}
                 onPress={() =>
                     Actions.photo({"url": this.props.item.url, "title": this.props.item.desc})
                 }>

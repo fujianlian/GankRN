@@ -10,7 +10,7 @@ export default class MyWeb extends Component {
         this.state = {
             backAndroidHandler: false,
         };
-        this.title = null;
+        this.title = this.props.title;
     }
 
     componentDidMount() {
@@ -37,8 +37,7 @@ export default class MyWeb extends Component {
 
     _onNavigationStateChange(navState) {
         let title = navState.title;
-
-        if (this.title !== title) {
+        if (title.length > 0 && this.title !== title) {
             this.title = title;
             Actions.refresh({title})
         }

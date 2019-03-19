@@ -7,9 +7,18 @@ const service_url = (path) => {
     return base_url + path;
 };
 
+const qq_music_url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg';
+
 /**
-* 首页banner
-*/
+ * 获取qq音乐首页banner推荐
+ */
+export const getQQBanner = () => {
+    return getFetch(qq_music_url);
+};
+
+/**
+ * 首页banner
+ */
 export const getBanner = () => {
     return getFetch(service_url('banner/json'));
 };
