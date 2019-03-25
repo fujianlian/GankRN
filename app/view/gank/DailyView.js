@@ -1,10 +1,13 @@
 import React, {Component} from "react";
-import {Platform, Image, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Platform, Image, Text, TouchableWithoutFeedback, View, TouchableHighlight} from "react-native";
 import {C10, C2, C9, mainColor, screenWidth} from "../../configs";
 
 import {getQQBanner} from "../../http/api_wan_android";
+import {getToday} from "../../http/api_gank";
 import Swiper from 'react-native-swiper'
 import {Actions} from "react-native-router-flux";
+import {UltimateListView} from 'react-native-ultimate-listview'
+import DailyItemView from "./DailyItemView";
 
 const h = Platform.select({'android': screenWidth * 0.4, "ios": screenWidth * 0.44});
 
@@ -15,6 +18,7 @@ export default class DailyView extends Component {
         super(props);
         this.state = {
             data: null,
+            dataSource: null,
             index: 0
         }
     }
@@ -25,16 +29,60 @@ export default class DailyView extends Component {
                 this.setState({
                     data: list.data.slider,
                 });
-            })
+            });
+        this.fetchData()
     }
 
+    fetchData = (page, startFetch, abortFetch) => {
+        getToday().then((list) => {
+            let category = list.category;
+            let dataSource = new Map();
+            category.map((value, i) => {
+                dataSource[i] = list.results[category[i]][0];
+            });
+            startFetch(dataSource, category.length)
+        }).catch(() => {
+            abortFetch();
+        });
+    };
+
     render() {
+        return (
+            <UltimateListView
+                header={this.header.bind(this)}
+                ref={ref => this.listView = ref}
+                key={this.state.layout}
+                onFetch={this.fetchData.bind(this)}
+                keyExtractor={(item, index) => `${index} - ${item}`}
+                refreshable={true}
+                item={this.renderItemView.bind(this)}
+                maxToRenderPerBatch={16}
+                updateCellsBatchingPeriod={100}
+                pagination={false}
+                separator={this.space.bind(this)}
+            />
+        );
+    }
+
+    space() {
+        return <View style={{
+            height: 0.5,
+            backgroundColor: C10
+        }}/>;
+    }
+
+    header() {
         return (
             <View>
                 {this._renderBanner()}
                 {this._renderMiddle()}
-
             </View>
+        )
+    }
+
+    renderItemView(item, index, separator) {
+        return (
+            <DailyItemView item={item}/>
         );
     }
 

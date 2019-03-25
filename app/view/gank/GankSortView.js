@@ -3,7 +3,7 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableHighlight, RefreshControl,
+    TouchableHighlight,
 } from "react-native";
 import {getCategoryData} from "../../http/api_gank";
 import {C2, C9, mainColor} from "../../configs";

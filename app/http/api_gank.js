@@ -21,7 +21,7 @@ export const getCategoryData = (type, page) => {
 };
 
 /**
- * 获取分类列表数据
+ * 获取最新一天的干货
  * @param type {福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all}
  * @param page 第几页
  * @returns {*|Promise<*>|PromiseLike<T | never>|Promise<T | never>}

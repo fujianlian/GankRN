@@ -18,7 +18,7 @@ export default class MainTab extends Component {
         super(props);
         this.state = {
             tabNames: ['干货营', '玩安卓', '我的'],
-            tabIconNames: ['ios-grid', 'logo-android', 'ios-contact'],
+            tabIconNames: ['ios-analytics', 'logo-android', 'ios-contact'],
         };
     }
 
