@@ -91,8 +91,8 @@ export default class HttpUtils extends Component {
                     return response;
                 }
             } else {
-                if (response.code !== 0) {
-                    return JSON.parse(qqData);
+                if (response.code === 0) {
+                    return response;
                 } else {
                     return JSON.parse(qqData);
                 }

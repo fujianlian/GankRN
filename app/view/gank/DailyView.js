@@ -1,43 +1,12 @@
 import React, {Component} from "react";
 import {Platform, Image, Text, TouchableWithoutFeedback, View} from "react-native";
-import {mainColor, screenWidth} from "../../configs";
+import {C10, C2, C9, mainColor, screenWidth} from "../../configs";
 
 import {getQQBanner} from "../../http/api_wan_android";
 import Swiper from 'react-native-swiper'
 import {Actions} from "react-native-router-flux";
 
 const h = Platform.select({'android': screenWidth * 0.4, "ios": screenWidth * 0.44});
-const styles = {
-
-    slide: {
-        height: h,
-        justifyContent: 'center',
-    },
-
-    text: {
-        color: '#fff',
-        fontSize: 14,
-    },
-
-    image: {
-        flex: 1
-    },
-
-    views: {
-        position: 'absolute',
-        top: h - 30,
-        backgroundColor: 'rgba(0,0,0,.3)',
-        width: screenWidth,
-        height: 30,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        justifyContent: 'center',
-        paddingStart: 10,
-        paddingEnd: 12 * 4 + 20
-    }
-
-
-};
 
 // 每日推荐
 export default class DailyView extends Component {
@@ -61,11 +30,19 @@ export default class DailyView extends Component {
 
     render() {
         return (
-            <View style={{
-                height: h, backgroundColor: '#dfdfdf',
-            }}>
+            <View>
+                {this._renderBanner()}
+                {this._renderMiddle()}
+
+            </View>
+        );
+    }
+
+    _renderBanner() {
+        return (
+            <View style={{height: h, backgroundColor: '#dfdfdf',}}>
                 {this.state.data != null ?
-                    <View style={{height: h}}>
+                    <View style={{flex: 1}}>
                         <Swiper
                             autoplay={true}
                             onMomentumScrollEnd={(e, state, context) => {
@@ -94,13 +71,10 @@ export default class DailyView extends Component {
                                 marginBottom: 3
                             }}/>}
                             paginationStyle={{bottom: 7,}}>
-                            {
-                                this.state.data.map((value, i) => this.renderItem(value, i))
-                            }
+                            {this.state.data.map((value, i) => this.renderItem(value, i))}
                         </Swiper>
                     </View> : <Text/>}
-            </View>
-        );
+            </View>);
     }
 
     renderItem(value, i) {
@@ -115,4 +89,79 @@ export default class DailyView extends Component {
             </TouchableWithoutFeedback>
         );
     }
+
+    _renderMiddle() {
+        return (
+            <View>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: "space-around",
+                    marginTop: 15,
+                    height: 52,
+                    marginHorizontal: 10,
+                }}>
+                    {this._middleImage("https://gank.io/xiandu", "闲读", require('../../image/icon_fm.png'))}
+                    {this._middleImage("https://github.com/trending", "每日推荐", require('../../image/icon_day.png'))}
+                    {this._middleImage("https://www.wanandroid.com", "玩安卓", require('../../image/icon_music.png'))}
+                    {this._middleImage("https://m.douban.com/movie/nowintheater?loc_id=108288", "热映榜", require('../../image/icon_rank.png'))}
+                </View>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: "space-around",
+                    marginTop: 8,
+                    marginHorizontal: 10,
+                }}>
+                    <Text style={styles.middle_text}>{"干货闲读"}</Text>
+                    <Text style={styles.middle_text}>{"每日推荐"}</Text>
+                    <Text style={styles.middle_text}>{"玩安卓"}</Text>
+                    <Text style={styles.middle_text}>{"热映榜"}</Text>
+                </View>
+                <View style={{height: 0.5, width: screenWidth, backgroundColor: C10, marginTop: 10}}/>
+            </View>
+        )
+    }
+
+    _middleImage(url, title, image) {
+        return <TouchableWithoutFeedback onPress={() => {
+            Actions.webView({"url": url, "title": title})
+        }}>
+            <Image style={{height: 52, width: 52}} source={image} resizeMode={'cover'}/>
+        </TouchableWithoutFeedback>
+    }
 }
+
+const styles = {
+
+    slide: {
+        height: h,
+        justifyContent: 'center',
+    },
+
+    text: {
+        color: '#fff',
+        fontSize: 14,
+    },
+
+    image: {
+        flex: 1
+    },
+
+    views: {
+        position: 'absolute',
+        top: h - 30,
+        backgroundColor: 'rgba(0,0,0,.3)',
+        width: screenWidth,
+        height: 30,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        justifyContent: 'center',
+        paddingStart: 10,
+        paddingEnd: 12 * 4 + 20
+    },
+    middle_text: {
+        fontSize: 13,
+        width: 52,
+        textColor: C2,
+        textAlign: "center"
+    }
+};

@@ -15,6 +15,7 @@ import {getBanner, getHomeList} from "../../http/api_wan_android";
 import {createAppContainer, createStackNavigator} from "react-navigation";
 import Swiper from 'react-native-swiper'
 import WanItemView from "./WanItemView";
+import {Actions} from "react-native-router-flux";
 
 const h = Platform.select({'android': screenWidth * 0.42, "ios": screenWidth * 0.44});
 
@@ -44,8 +45,8 @@ class HomeView extends Component {
         headerStyle: {backgroundColor: mainColor},
     });
 
-    fetchData = (page = 0, startFetch, abortFetch) => {
-        getHomeList(page)
+    fetchData = (page = 1, startFetch, abortFetch) => {
+        getHomeList(page-1)
             .then((list) => {
                 this.setState({
                     isLoading: false,
@@ -85,7 +86,6 @@ class HomeView extends Component {
         return (
             <UltimateListView
                 header={this.header.bind(this)}
-                initPage={0}
                 key={this.state.layout}
                 onFetch={this.fetchData.bind(this)}
                 keyExtractor={(item, index) => `${index} - ${item}`}

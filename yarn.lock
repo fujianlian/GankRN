@@ -4731,6 +4731,11 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   resolved "http://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-native-actionsheet@^2.4.2:
+  version "2.4.2"
+  resolved "http://registry.npm.taobao.org/react-native-actionsheet/download/react-native-actionsheet-2.4.2.tgz#6a00dd51a75ef2c8974312130e405af73191500f"
+  integrity sha1-agDdUade8siXQxITDkBa9zGRUA8=
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/react-native-dismiss-keyboard/download/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
