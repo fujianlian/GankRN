@@ -32,19 +32,15 @@ export default class DailyView extends Component {
         this.fetchData()
     }
 
-    fetchData = (page = 1, startFetch, abortFetch) => {
+    fetchData = (page, startFetch, abortFetch) => {
         getToday().then((list) => {
-            console.log(list);
             let category = list.category;
             let dataSource = [];
             category.map((value, i) => {
                 dataSource[i] = list.results[category[i]][list.results[category[i]].length - 1];
             });
-            console.log(dataSource);
             startFetch(dataSource, category.length)
-        }).catch((e) => {
-            console.err(e.toString());
-            console.log("abortFetch");
+        }).catch(() => {
             abortFetch();
         });
     };

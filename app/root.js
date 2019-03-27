@@ -7,6 +7,7 @@ import {C1, mainColor} from "./configs";
 import MyWeb from './view/WebPageView'
 import PhotoView from './view/photo/PhotoView'
 import AddGankView from './view/gank/AddGankView'
+import AboutView from './view/personal/AboutView'
 
 const statusBackColor = Platform.select({android: "#AE2C25", ios: 'transparent'});
 
@@ -22,6 +23,7 @@ export default class RootView extends Component {
                         <Scene key="webView" component={MyWeb}/>
                         <Scene key="photo" component={PhotoView}/>
                         <Scene key="addGank" title="干货发布" component={AddGankView}/>
+                        <Scene key="about" title="关于" component={AboutView}/>
                     </Stack>
                 </Router>
             </View>

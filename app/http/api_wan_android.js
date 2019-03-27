@@ -28,7 +28,7 @@ export const getBanner = () => {
  * @param page 第几页
  */
 export const getHomeList = (page) => {
-    console.log('page='+page);
+    console.log('page=' + page);
     return getFetch(service_url(`article/list/${page}/json`));
 };
 
@@ -38,4 +38,19 @@ export const getHomeList = (page) => {
  */
 export const getNewProject = (page) => {
     return getFetch(service_url(`article/listproject/${page}/json`));
+};
+
+export const login = (username, password) => {
+    let map = new Map();
+    map['username'] = username;
+    map['password'] = password;
+    return postFetch(service_url(`user/login`), map);
+};
+
+export const register = (username, password, repassword) => {
+    let map = new Map();
+    map['username'] = username;
+    map['password'] = password;
+    map['repassword'] = repassword;
+    return postFetch(service_url(`user/register`), map);
 };

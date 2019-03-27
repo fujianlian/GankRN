@@ -49,6 +49,8 @@ export default class PersonalItemView extends PureComponent {
     go() {
         if (this.props.text === "我的收藏") {
             showToast("下一版本实现")
+        } else if (this.props.text === "关于") {
+           Actions.about()
         } else {
             Actions.webView({"url": this.props.url, "title": this.props.text})
         }

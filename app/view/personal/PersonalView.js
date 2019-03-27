@@ -4,10 +4,9 @@ import {
     StyleSheet,
     Platform,
 } from "react-native";
-import {C10, mainBackColor, mainColor, screenWidth} from "../../configs";
+import { mainBackColor, mainColor, screenWidth} from "../../configs";
 import {createAppContainer, createStackNavigator} from "react-navigation";
 import PersonalItemView from "./PersonalItemView";
-
 
 const h = Platform.select({'android': screenWidth * 0.42, "ios": screenWidth * 0.44});
 
