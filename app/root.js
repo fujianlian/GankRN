@@ -8,7 +8,7 @@ import MyWeb from './view/WebPageView'
 import PhotoView from './view/photo/PhotoView'
 import AddGankView from './view/gank/AddGankView'
 
-const statusBackColor = Platform.select({android: mainColor, ios: 'transparent'});
+const statusBackColor = Platform.select({android: "#AE2C25", ios: 'transparent'});
 
 export default class RootView extends Component {
     render() {

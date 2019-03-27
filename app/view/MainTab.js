@@ -6,11 +6,10 @@ import React, {Component} from 'react';
 
 import HomeTab from './wanandroid/HomeView'
 import GankTab from './gank/GankView'
-import PersonalView from './PersonalView'
+import PersonalTab from './personal/PersonalView'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import HomeTabBar from '../view/component/HomeTabBar';
-import {mainBackColor} from "../configs";
 
 export default class MainTab extends Component {
 
@@ -27,7 +26,6 @@ export default class MainTab extends Component {
         let tabIconNames = this.state.tabIconNames;
         return (
             <ScrollableTabView
-                style={{backgroundColor: mainBackColor}}
                 renderTabBar={() => <HomeTabBar tabNames={tabNames} tabIconNames={tabIconNames}/>}
                 tabBarPosition={'bottom'}
                 locked={true}
@@ -35,7 +33,7 @@ export default class MainTab extends Component {
                 scrollWithoutAnimation={true}>
                 <GankTab/>
                 <HomeTab/>
-                <PersonalView/>
+                <PersonalTab/>
             </ScrollableTabView>
         );
     }

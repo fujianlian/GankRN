@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Platform, Image, Text, TouchableWithoutFeedback, View, TouchableHighlight} from "react-native";
+import {Platform, Image, Text, TouchableWithoutFeedback, View} from "react-native";
 import {C10, C2, C9, mainColor, screenWidth} from "../../configs";
 
 import {getQQBanner} from "../../http/api_wan_android";
@@ -18,7 +18,6 @@ export default class DailyView extends Component {
         super(props);
         this.state = {
             data: null,
-            dataSource: null,
             index: 0
         }
     }
@@ -33,15 +32,19 @@ export default class DailyView extends Component {
         this.fetchData()
     }
 
-    fetchData = (page, startFetch, abortFetch) => {
+    fetchData = (page = 1, startFetch, abortFetch) => {
         getToday().then((list) => {
+            console.log(list);
             let category = list.category;
-            let dataSource = new Map();
+            let dataSource = [];
             category.map((value, i) => {
-                dataSource[i] = list.results[category[i]][0];
+                dataSource[i] = list.results[category[i]][list.results[category[i]].length - 1];
             });
+            console.log(dataSource);
             startFetch(dataSource, category.length)
-        }).catch(() => {
+        }).catch((e) => {
+            console.err(e.toString());
+            console.log("abortFetch");
             abortFetch();
         });
     };
@@ -50,14 +53,12 @@ export default class DailyView extends Component {
         return (
             <UltimateListView
                 header={this.header.bind(this)}
-                ref={ref => this.listView = ref}
-                key={this.state.layout}
                 onFetch={this.fetchData.bind(this)}
                 keyExtractor={(item, index) => `${index} - ${item}`}
                 refreshable={true}
+                allLoadedText={'没有更多数据了'}
+                waitingSpinnerText={'加载中...'}
                 item={this.renderItemView.bind(this)}
-                maxToRenderPerBatch={16}
-                updateCellsBatchingPeriod={100}
                 pagination={false}
                 separator={this.space.bind(this)}
             />
@@ -164,7 +165,7 @@ export default class DailyView extends Component {
                     <Text style={styles.middle_text}>{"玩安卓"}</Text>
                     <Text style={styles.middle_text}>{"热映榜"}</Text>
                 </View>
-                <View style={{height: 0.5, width: screenWidth, backgroundColor: C10, marginTop: 10}}/>
+                <View style={{height: 0.5, width: screenWidth, backgroundColor: C10, marginTop: 12}}/>
             </View>
         )
     }
@@ -209,7 +210,7 @@ const styles = {
     middle_text: {
         fontSize: 13,
         width: 52,
-        textColor: C2,
+        color: C2,
         textAlign: "center"
     }
 };
