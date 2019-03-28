@@ -8,6 +8,8 @@ import MyWeb from './view/WebPageView'
 import PhotoView from './view/photo/PhotoView'
 import AddGankView from './view/gank/AddGankView'
 import AboutView from './view/personal/AboutView'
+import LoginView from './view/personal/LoginView'
+import RegisterView from './view/personal/RegisterView'
 
 const statusBackColor = Platform.select({android: "#AE2C25", ios: 'transparent'});
 
@@ -24,6 +26,8 @@ export default class RootView extends Component {
                         <Scene key="photo" component={PhotoView}/>
                         <Scene key="addGank" title="干货发布" component={AddGankView}/>
                         <Scene key="about" title="关于" component={AboutView}/>
+                        <Scene key="login" title="登录" component={LoginView}/>
+                        <Scene key="register" title="注册" component={RegisterView}/>
                     </Stack>
                 </Router>
             </View>

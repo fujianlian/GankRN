@@ -34,8 +34,8 @@ const HeaderBar = APPBAR_HEIGHT + STATUSBAR_HEIGHT;
 /**
  Export Value
  **/
-export const W = width
-export const H = height
+export const W = width;
+export const H = height;
 
 /**
  判断是否为IphoneX
@@ -149,4 +149,9 @@ export const container = {
 export const background = {
     flex: 1,
     backgroundColor: mainBackColor,
+};
+
+export const whiteBackground = {
+    flex: 1,
+    backgroundColor: "white",
 };

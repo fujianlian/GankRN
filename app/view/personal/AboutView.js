@@ -34,11 +34,12 @@ export default class AboutView extends Component {
                 <Text style={styles.text}>
                     {"本项目完全开源，如果你觉得有帮助的话，请帮忙点个star。"}
                 </Text>
+                {this.clickText("项目源码", "https://github.com/fujianlian/GankRN")}
                 <Text style={styles.textTitle}>关于我</Text>
                 <View style={styles.line}/>
                 <View style={styles.row}>
                     <Icon name={'logo-github'} size={28} color={C1} style={{marginEnd: 12}}/>
-                    {this.clickText("fujianlian", "https://github.com/fujianlian")}
+                    {this.clickText("@fujianlian", "https://github.com/fujianlian")}
                 </View>
                 <Text style={styles.text}>
                     {"如果你在使用中遇到问题，欢迎给我提Issue"}

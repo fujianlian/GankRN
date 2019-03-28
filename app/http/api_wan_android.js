@@ -47,10 +47,14 @@ export const login = (username, password) => {
     return postFetch(service_url(`user/login`), map);
 };
 
-export const register = (username, password, repassword) => {
+export const register = (username, password) => {
     let map = new Map();
     map['username'] = username;
     map['password'] = password;
-    map['repassword'] = repassword;
+    map['repassword'] = password;
     return postFetch(service_url(`user/register`), map);
+};
+
+export const collect = () => {
+    return getFetch(service_url(`lg/collect/list/0/json`));
 };
