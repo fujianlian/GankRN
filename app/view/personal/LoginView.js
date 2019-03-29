@@ -20,8 +20,8 @@ export default class LoginView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "fujianlian",
-            password: "qwer1234",
+            username: "",
+            password: "",
         }
     }
 
@@ -94,6 +94,7 @@ export default class LoginView extends Component {
             await AsyncStorage.setItem('userName', this.state.username);
             await AsyncStorage.setItem('id', id + "");
             showToast('登录成功');
+            DeviceEventEmitter.emit('login');
             Actions.pop()
         } catch (error) {
             console.log(error)

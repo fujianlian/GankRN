@@ -114,7 +114,11 @@ export default class HttpUtils extends Component {
      */
     static postRequest = (url, params = {}) => {
         let formData = new FormData();
-        Object.keys(params).forEach((key) => formData.append(key, params[key]));
+        Object.keys(params).forEach((key) => {
+            if (!key.startsWith("_")) {
+                formData.append(key, params[key])
+            }
+        });
         return timeoutFetch(
             fetch(url, {
                 method: "POST",

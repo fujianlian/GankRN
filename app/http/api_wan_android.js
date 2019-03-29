@@ -28,7 +28,6 @@ export const getBanner = () => {
  * @param page 第几页
  */
 export const getHomeList = (page) => {
-    console.log('page=' + page);
     return getFetch(service_url(`article/list/${page}/json`));
 };
 

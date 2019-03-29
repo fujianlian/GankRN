@@ -10,8 +10,6 @@ import {createAppContainer, createStackNavigator} from "react-navigation";
 import PersonalItemView from "./PersonalItemView";
 import {Actions} from "react-native-router-flux";
 
-const h = Platform.select({'android': screenWidth * 0.42, "ios": screenWidth * 0.44});
-
 /**
  * 我的
  */
@@ -34,7 +32,13 @@ class PersonalView extends Component {
     });
 
     componentWillMount() {
+        DeviceEventEmitter.addListener('login', this._retrieveData.bind(this));
         this._retrieveData();
+    }
+
+
+    componentWillUnmount() {
+        DeviceEventEmitter.removeAllListeners('login');
     }
 
     render() {
