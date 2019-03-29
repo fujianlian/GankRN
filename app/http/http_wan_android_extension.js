@@ -14,10 +14,10 @@ import {dataCache} from "./http_cache";
  * @returns {value\promise}
  * 返回的值如果从缓存中取到数据就直接换行数据，或则返回promise对象
  */
-const fetchData = (isCache, type) => (url, params, callback) => {
+const fetchData = (isCache, type) => (url, params, cookie, callback) => {
     const fetchFunc = () => {
         let promise =
-            type === "get" ? HttpUtils.getRequest(url, params) : HttpUtils.postRequest(url, params);
+            type === "get" ? HttpUtils.getRequest(url, params, cookie) : HttpUtils.postRequest(url, params);
         if (callback && typeof callback === "function") {
             promise.then((response) => {
                 return callback(response);

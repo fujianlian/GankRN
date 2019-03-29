@@ -15,3 +15,13 @@ export const showToast = (msg) => {
         delay: 0, // toast显示的延时
     });
 };
+
+/**
+ * 获取wanandroid cookie
+ * @param username 用户名
+ * @param password 密码
+ * @returns {string}
+ */
+export const getCookie = (username, password) => {
+    return "loginUserName=" + username + ";loginUserPassword=" + password
+};

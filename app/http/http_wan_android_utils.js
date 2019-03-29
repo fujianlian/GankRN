@@ -4,15 +4,6 @@ import {Component} from "react";
 import {showToast} from "../configs";
 
 /**
- * fetch 网络请求的header，可自定义header 内容
- * @type {{Accept: string, Content-Type: string, accessToken: *}}
- */
-let header = {
-    "Accept": "application/json",
-    "Content-Type": "application/json"
-};
-
-/**
  * GET 请求时，拼接请求URL
  * @param url 请求URL
  * @param params 请求参数
@@ -68,13 +59,18 @@ export default class HttpUtils extends Component {
      * 基于fetch 封装的GET 网络请求
      * @param url 请求URL
      * @param params 请求参数
+     * @param cookie
      * @returns {Promise}
      */
-    static getRequest = (url, params = {}) => {
+    static getRequest = (url, params = {}, cookie = "") => {
         return timeoutFetch(
             fetch(handleUrl(url)(params), {
                 method: "GET",
-                headers: header
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Cookie": cookie
+                }
             })
         ).then((response) => {
             if (response.ok) {
@@ -110,9 +106,10 @@ export default class HttpUtils extends Component {
      * 基于fetch 的 POST 请求
      * @param url 请求的URL
      * @param params 请求参数
+     * @param cookie
      * @returns {Promise}
      */
-    static postRequest = (url, params = {}) => {
+    static postRequest = (url, params = {}, cookie = "") => {
         let formData = new FormData();
         Object.keys(params).forEach((key) => {
             if (!key.startsWith("_")) {
@@ -122,7 +119,8 @@ export default class HttpUtils extends Component {
         return timeoutFetch(
             fetch(url, {
                 method: "POST",
-                body: formData
+                body: formData,
+                headers: {"Cookie": cookie}
             })
         ).then((response) => {
             if (response.ok) {

@@ -54,6 +54,6 @@ export const register = (username, password) => {
     return postFetch(service_url(`user/register`), map);
 };
 
-export const collect = () => {
-    return getFetch(service_url(`lg/collect/list/0/json`));
+export const collect = (page, cookie) => {
+    return getFetch(service_url(`lg/collect/list/${page}/json`), {}, cookie);
 };
