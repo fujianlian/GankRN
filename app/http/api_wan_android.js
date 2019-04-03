@@ -54,6 +54,26 @@ export const register = (username, password) => {
     return postFetch(service_url(`user/register`), map);
 };
 
-export const collect = (page, cookie) => {
+export const collectList = (page, cookie) => {
     return getFetch(service_url(`lg/collect/list/${page}/json`), {}, cookie);
+};
+
+/**
+ * 收藏站内文章
+ * @param id 文章id
+ * @param cookie
+ * @returns {*}
+ */
+export const collect = (id, cookie) => {
+    return getFetch(service_url(`https://www.wanandroid.com/lg/collect/${id}/json`), {}, cookie);
+};
+
+/**
+ * 取消收藏站内文章
+ * @param id 文章id
+ * @param cookie
+ * @returns {*}
+ */
+export const cancelCollect = (id, cookie) => {
+    return getFetch(service_url(`https://www.wanandroid.com/lg/uncollect_originId/${id}/json`), {}, cookie);
 };

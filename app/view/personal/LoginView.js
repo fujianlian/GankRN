@@ -93,6 +93,7 @@ export default class LoginView extends Component {
             await AsyncStorage.setItem('isLogin', "true");
             await AsyncStorage.setItem('userName', this.state.username);
             await AsyncStorage.setItem('id', id + "");
+            await AsyncStorage.setItem('userPassword', this.state.password);
             showToast('登录成功');
             DeviceEventEmitter.emit('login');
             Actions.pop()

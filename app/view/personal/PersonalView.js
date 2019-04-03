@@ -3,9 +3,13 @@ import {
     View,
     StyleSheet,
     Platform,
-    AsyncStorage, DeviceEventEmitter, Text, TouchableHighlight, TouchableNativeFeedback
+    AsyncStorage,
+    DeviceEventEmitter,
+    Text,
+    TouchableHighlight,
+    TouchableNativeFeedback
 } from "react-native";
-import {C1, C4, mainBackColor, mainColor, screenWidth} from "../../configs";
+import {C1, getCookie, mainBackColor, mainColor} from "../../configs";
 import {createAppContainer, createStackNavigator} from "react-navigation";
 import PersonalItemView from "./PersonalItemView";
 import {Actions} from "react-native-router-flux";
@@ -21,6 +25,7 @@ class PersonalView extends Component {
             isLogin: false,
             id: "",
             userName: "",
+            userPassword: "",
             loginText: "玩安卓登录",
         };
     }
@@ -33,12 +38,14 @@ class PersonalView extends Component {
 
     componentWillMount() {
         DeviceEventEmitter.addListener('login', this._retrieveData.bind(this));
+        DeviceEventEmitter.addListener('collect', this._collect.bind(this));
         this._retrieveData();
     }
 
 
     componentWillUnmount() {
         DeviceEventEmitter.removeAllListeners('login');
+        DeviceEventEmitter.removeAllListeners('collect');
     }
 
     render() {
@@ -48,7 +55,8 @@ class PersonalView extends Component {
                 <PersonalItemView text={"我的收藏"}/>
                 <PersonalItemView text={"点个star"} url={"https://github.com/fujianlian/GankRN"}/>
                 <PersonalItemView text={"提Issue/PR"} url={"https://github.com/fujianlian/GankRN/issues"}/>
-                <PersonalItemView text={"关于"}/>
+                <PersonalItemView text={"关于"} isLogin={this.state.isLogin}
+                                  userName={this.state.userName} userPassword={this.state.userPassword}/>
             </View>
         );
     }
@@ -98,17 +106,27 @@ class PersonalView extends Component {
             if (isLogin !== null && isLogin === "true") {
                 let id = await AsyncStorage.getItem('id');
                 let userName = await AsyncStorage.getItem('userName');
+                let userPassword = await AsyncStorage.getItem('userPassword');
                 this.setState({
                     id: id,
                     isLogin: true,
                     userName: userName,
+                    userPassword: userPassword,
                     loginText: "玩安卓",
                 });
             }
         } catch (error) {
 
         }
-    }
+    };
+
+    _collect = async () => {
+        if (this.state.isLogin) {
+            Actions.collect({cookie: getCookie(this.state.userName, this.state.userPassword)})
+        } else {
+            Actions.login()
+        }
+    };
 }
 
 const styles = StyleSheet.create({

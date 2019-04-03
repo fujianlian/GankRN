@@ -5,10 +5,10 @@ import {
     Text,
     TouchableNativeFeedback,
     TouchableHighlight,
-    View,
+    View, DeviceEventEmitter,
 } from "react-native";
 import {Actions} from "react-native-router-flux";
-import {C1, C4, showToast} from "../../configs";
+import {C1, C4} from "../../configs";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class PersonalItemView extends PureComponent {
@@ -48,7 +48,7 @@ export default class PersonalItemView extends PureComponent {
 
     go() {
         if (this.props.text === "我的收藏") {
-            showToast("下一版本实现")
+            DeviceEventEmitter.emit('collect');
         } else if (this.props.text === "关于") {
             Actions.about()
         } else {
