@@ -5,9 +5,9 @@ import {
     Text,
     StyleSheet,
     Platform,
-    TouchableWithoutFeedback,
+    TouchableWithoutFeedback, AsyncStorage, DeviceEventEmitter,
 } from "react-native";
-import {C9, mainColor, screenWidth} from "../../configs";
+import {C9, getCookie, mainColor, screenWidth} from "../../configs";
 import WaitLoadingView from "../component/WaitLoadingView";
 import ErrorView from "../component/ErrorView";
 import {UltimateListView} from "react-native-ultimate-listview";
@@ -35,7 +35,9 @@ class HomeView extends Component {
             layout: "list",
             // banner相关
             data: null,
-            index: 0
+            index: 0,
+            userName: "",
+            userPassword: "",
         };
     }
 
@@ -45,8 +47,34 @@ class HomeView extends Component {
         headerStyle: {backgroundColor: mainColor},
     });
 
+    componentWillMount() {
+        DeviceEventEmitter.addListener('login', this._retrieveData.bind(this));
+        this._retrieveData();
+    }
+
+
+    componentWillUnmount() {
+        DeviceEventEmitter.removeAllListeners('login');
+    }
+
+    _retrieveData = async () => {
+        try {
+            let isLogin = await AsyncStorage.getItem('isLogin');
+            if (isLogin !== null && isLogin === "true") {
+                let userName = await AsyncStorage.getItem('userName');
+                let userPassword = await AsyncStorage.getItem('userPassword');
+                this.setState({
+                    userName: userName,
+                    userPassword: userPassword,
+                });
+            }
+        } catch (error) {
+
+        }
+    };
+
     fetchData = (page = 1, startFetch, abortFetch) => {
-        getHomeList(page-1)
+        getHomeList(page - 1, getCookie(this.state.userName, this.state.userPassword))
             .then((list) => {
                 this.setState({
                     isLoading: false,

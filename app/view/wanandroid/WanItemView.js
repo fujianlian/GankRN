@@ -1,15 +1,8 @@
 import React, {PureComponent} from "react";
-import {
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableNativeFeedback,
-    TouchableHighlight,
-    View,
-} from "react-native";
+import {Platform, StyleSheet, Text, TouchableHighlight, TouchableNativeFeedback, View,} from "react-native";
 import {Actions} from "react-native-router-flux";
-import {C1, C3, mainColor} from "../../configs";
-import Icon from 'react-native-vector-icons/Ionicons';
+import {C1, C3, C4, mainColor} from "../../configs";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class WanItemView extends PureComponent {
 
@@ -22,7 +15,12 @@ export default class WanItemView extends PureComponent {
             return (
                 <TouchableHighlight
                     onPress={() => {
-                        Actions.webView({"url": this.props.item.link, "title": this.props.item.title})
+                        Actions.webView({
+                            "url": this.props.item.link,
+                            "title": this.props.item.title,
+                            "collect": this.props.item.collect,
+                            "isWanAndroid": true,
+                        })
                     }}
                     underlayColor={'rgba(223,223,223,0.5)'}>
                     {this.rendItem()}
@@ -30,7 +28,12 @@ export default class WanItemView extends PureComponent {
         } else {
             return <TouchableNativeFeedback
                 onPress={() => {
-                    Actions.webView({"url": this.props.item.link, "title": this.props.item.title})
+                    Actions.webView({
+                        "url": this.props.item.link,
+                        "title": this.props.item.title,
+                        "collect": this.props.item.collect,
+                        "isWanAndroid": true,
+                    })
                 }}
                 background={TouchableNativeFeedback.SelectableBackground()}>
                 {this.rendItem()}
@@ -55,7 +58,9 @@ export default class WanItemView extends PureComponent {
                 <Text style={[styles.text, {flex: 1}]}>
                     {this.props.item.niceDate} · {this.props.item.author}
                 </Text>
-                <Icon name={'ios-star-outline'} size={28} color={'rgba(255,0,0,0.8)'}/>
+                {this.props.item.collect ?
+                    <Icon name={'favorite'} size={28} color={'rgba(255,0,0,0.8)'}/> :
+                    <Icon name={'favorite'} size={28} color={C4}/>}
             </View>
         </View>
     }

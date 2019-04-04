@@ -1,15 +1,7 @@
 import React, {PureComponent} from "react";
-import {
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableNativeFeedback,
-    TouchableHighlight,
-    View,
-} from "react-native";
+import {Platform, StyleSheet, Text, TouchableHighlight, TouchableNativeFeedback, View,} from "react-native";
 import {Actions} from "react-native-router-flux";
 import {C1, C3, mainColor} from "../../configs";
-import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class CollectItemView extends PureComponent {
 
@@ -47,13 +39,11 @@ export default class CollectItemView extends PureComponent {
             </View>
             <Text
                 numberOfLines={3}
-                style={styles.title}>{this.props.item.title}</Text>
-            <View style={{flexDirection: 'row', marginTop: 6, alignItems: "baseline"}}>
-                <Text style={[styles.text, {flex: 1}]}>
-                    {this.props.item.niceDate} · {this.props.item.author}
-                </Text>
-                <Icon name={'ios-star-outline'} size={28} color={'rgba(255,0,0,0.8)'}/>
-            </View>
+                style={styles.title}>{this.props.item.title}
+            </Text>
+            <Text style={styles.text}>
+                {this.props.item.niceDate} · {this.props.item.author}
+            </Text>
         </View>
     }
 }
@@ -71,7 +61,7 @@ const styles = StyleSheet.create({
         fontStyle: "italic"
     },
     text: {
-        color: C3, fontSize: 12,
+        color: C3, fontSize: 12, marginTop: 10
     },
     text1: {
         color: C3, fontSize: 14,

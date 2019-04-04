@@ -9,7 +9,7 @@ import {
     TouchableHighlight,
     TouchableNativeFeedback
 } from "react-native";
-import {C1, getCookie, mainBackColor, mainColor} from "../../configs";
+import {C1, getCookie, mainBackColor, mainColor, screenWidth} from "../../configs";
 import {createAppContainer, createStackNavigator} from "react-navigation";
 import PersonalItemView from "./PersonalItemView";
 import {Actions} from "react-native-router-flux";
@@ -65,7 +65,6 @@ class PersonalView extends Component {
         if (Platform.OS === 'ios') {
             return (
                 <TouchableHighlight
-                    style={{flexDirection: "row"}}
                     onPress={this._go.bind(this)}
                     underlayColor={'rgba(223,223,223,0.5)'}>
                     <View style={styles.item}>
@@ -79,7 +78,6 @@ class PersonalView extends Component {
                 </TouchableHighlight>)
         } else {
             return <TouchableNativeFeedback
-                style={{flexDirection: "row"}}
                 onPress={this._go.bind(this)}
                 background={TouchableNativeFeedback.SelectableBackground()}>
                 <View style={styles.item}>
@@ -140,7 +138,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         height: 60,
         marginBottom: 15,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width: screenWidth
     },
     text: {
         fontSize: 16,

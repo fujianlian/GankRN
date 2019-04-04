@@ -27,8 +27,8 @@ export const getBanner = () => {
  * 首页文章列表
  * @param page 第几页
  */
-export const getHomeList = (page) => {
-    return getFetch(service_url(`article/list/${page}/json`));
+export const getHomeList = (page, cookie) => {
+    return getFetch(service_url(`article/list/${page}/json`), {}, cookie);
 };
 
 /**
