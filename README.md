@@ -1,8 +1,6 @@
 # GankRN
 
-GankRN是[干货集中营](https://gank.io)移动端全家桶系列第二篇，根据 Gank.io 官方提供的api实现的Gank客户端，包含最新数据展示，分类列表读取，妹纸瀑布流图片，提交干货；同时接入了[@鸿洋大神](https://github.com/hongyangAndroid)的[玩Android](https://www.wanandroid.com/)网站数据，目前只接入了首页数据，登录、注册，我的收藏查看，后续版本会集成玩安卓的更多数据。
-
-之后还会推出kotlin版本，敬请期待。
+GankRN是[干货集中营](https://gank.io)移动端全家桶系列第二篇，根据 Gank.io 官方提供的api实现的Gank客户端，包含最新数据展示，分类列表读取，妹纸瀑布流图片，提交干货；同时接入了[@鸿洋大神](https://github.com/hongyangAndroid)的[玩Android](https://www.wanandroid.com/)网站数据，目前只接入了首页数据，登录、注册，我的收藏查看，后续版本会集成玩安卓的更多数据
 
 [同款flutter干货集中营](https://github.com/fujianlian/GankFlutter)
 
