@@ -6,6 +6,8 @@ GankRN是[干货集中营](https://gank.io)移动端全家桶系列第二篇，�
 
 [同款flutter干货集中营](https://github.com/fujianlian/GankFlutter)
 
+[同款Kotlin干货集中营](https://github.com/fujianlian/GankKotlin)
+
 [同款小程序干货集中营](https://github.com/fujianlian/GankMini)
 
 ## 应用截图
